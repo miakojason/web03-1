@@ -1,4 +1,5 @@
 <?php include_once "./db.php";
+// id edit
 if (isset($_POST['id'])) {
     foreach ($_POST['id'] as $idx => $id) {
         if (isset($_POST['del']) && in_array($id, $_POST['del'])) {
@@ -12,6 +13,7 @@ if (isset($_POST['id'])) {
         }
     }
 } else {
+    // create
     if (isset($_FILES['poster']['tmp_name'])) {
         move_uploaded_file($_FILES['poster']['tmp_name'], "../img/" . $_FILES['poster']['name']);
         $_POST['img'] = $_FILES['poster']['name'];

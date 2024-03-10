@@ -1,8 +1,5 @@
-<style>
-
-</style>
 <button onclick="location.href='?do=add_movie'">新增電影</button>
-<div>
+<div style="height: 450px;;overflow: auto;">
     <?php
     $movies = $Movie->all(" order by rank");
     foreach ($movies as $idx => $movie) {
