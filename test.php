@@ -2,11 +2,12 @@
 for ($i = 0; $i < 9; $i++) {
     $seat = serialize([$i * 2, $i * 2 + 1]);
     $sql = "INSERT INTO `orders` (`id`, `no`, `movie`, `date`, `session`, `qt`, `seats`)
-                         VALUES (NULL, '20240309000{$i}', '院線片0{$i}', '2024-03-09', '14:00~16:00', '2', '{$seat}')";
+                         VALUES (NULL, '20240309000{$i}', '院線片0{$i}', '2024-03-09', '14:00~16:00', '2', '{$seat}');";
 
 echo $sql;
 echo "<br>";
 }
+
 // INSERT INTO `orders` (`id`, `no`, `movie`, `date`, `session`, `qt`, `seats`) VALUES (NULL, '', '', '', '', '', '')
 
 // INSERT INTO `orders` (`id`, `no`, `movie`, `date`, `session`, `qt`, `seats`) VALUES (NULL, '202403090000', '院線片00', '2024-03-09', '14:00~16:00', '2', 'a:2:{i:0;i:0;i:1;i:1;}');
