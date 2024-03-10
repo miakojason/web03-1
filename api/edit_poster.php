@@ -4,7 +4,7 @@ foreach($_POST['id'] as $idx=>$id){
         $Poster->del($id);
     }else{
         $row=$Poster->find($id);
-        $row['sh']=(isset($_POST['sh']) && in_array($id,$_POST['id']))?1:0;
+        $row['sh']=(isset($_POST['sh']) && in_array($id,$_POST['sh']))?1:0;
         $row['name']=$_POST['name'][$idx];
         $row['ani']=$_POST['ani'][$idx];
         $Poster->save($row);

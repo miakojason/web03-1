@@ -18,7 +18,7 @@
     <div>預告片排序</div>
     <div>操作</div>
 </div>
-<form action="./api/edit_poster.php" method="post">
+<form action="./api/save_poster.php" method="post">
     <div style="height: 190px; overflow:auto">
         <?php
         $pos = $Poster->all(" order by rank");
@@ -54,7 +54,7 @@
 
 
 <h3 class="ct">新增預告片海報</h3>
-<form action="./api/add_poster.php" method="post" enctype="multipart/form-data">
+<form action="./api/save_poster.php" method="post" enctype="multipart/form-data">
     <table class="ts">
         <tr>
             <td>預告片海報</td>
