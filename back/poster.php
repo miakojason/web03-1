@@ -1,13 +1,14 @@
 <style>
-    .item{
+    .item {
         display: flex;
-        justify-content:space-between;
+        justify-content: space-between;
 
     }
-    .item div{
-        width:25%;
-        margin:0 0.25%;
-        text-align:center;
+
+    .item div {
+        width: 25%;
+        margin: 0 0.25%;
+        text-align: center;
     }
 </style>
 <h3 class="ct">預告片清單</h3>
@@ -27,12 +28,12 @@
                 <div><img src="./img/<?= $po['img']; ?>" style="width: 60px;height:80px;"></div>
                 <div><input type="text" name="name[]" value="<?= $po['name']; ?>"></div>
                 <div>
-                    <input class="btn" type="button" value="往上" data-id="<?= $po['id']; ?>" ; date-sw="<?= ($idx !== 0) ? $pos[$idx - 1]['id'] : $po['id']; ?>">
-                    <input class="btn" type="button" value="往下" data-id="<?= $po['id']; ?>" ; date-sw="<?= ((count($pos) - 1) != $idx) ? $pos[$idx + 1]['id'] : $po['id']; ?>">
+                    <input class="btn" type="button" value="往上" data-id="<?= $po['id']; ?>" ; data-sw="<?= ($idx !== 0) ? $pos[$idx - 1]['id'] : $po['id']; ?>">
+                    <input class="btn" type="button" value="往下" data-id="<?= $po['id']; ?>" ; data-sw="<?= ((count($pos) - 1) != $idx) ? $pos[$idx + 1]['id'] : $po['id']; ?>">
                 </div>
                 <div>
                     <input type="hidden" name="id[]" value="<?= $po['id']; ?>">
-                    <input type="checkbox" name="sh[]" value="<?= $po['id']; ?>" <?=($po['sh']==1)?'checked':'';?>>顯示
+                    <input type="checkbox" name="sh[]" value="<?= $po['id']; ?>" <?= ($po['sh'] == 1) ? 'checked' : ''; ?>>顯示
                     <input type="checkbox" name="del[]" value="<?= $po['id']; ?>">刪除
                     <select name="ani[]" id="">
                         <option value="1" <?= ($po['ani'] == 1) ? 'selected' : ''; ?>>淡入淡出</option>
@@ -67,3 +68,17 @@
         <input type="reset" value="重置">
     </div>
 </form>
+<script>
+    $(".btn").on("click", function() {
+        let id = $(this).data('id');
+        let sw = $(this).data('sw');
+        let table = 'poster'
+        $.post("./api/sw.php", {
+            id,
+            sw,
+            table
+        }, () => {
+            location.reload()
+        })
+    })
+</script>

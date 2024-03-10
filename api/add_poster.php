@@ -6,5 +6,5 @@ if(isset($_FILES['poster']['tmp_name'])){
 $_POST['rank']=$Poster->max('id');
 $_POST['ani']=rand(1,3);
 $Poster->save($_POST);
-to("../back/php?do=poster");
+to("../back.php?do=poster");
 ?>
