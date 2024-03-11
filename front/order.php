@@ -10,63 +10,72 @@
             <select name="date" id="date"></select>
         </div>
         <div>
-            <label>場次:</label>
+            <label>場次</label>
             <select name="session" id="session"></select>
         </div>
-        <button onclick="booking()">確定</button>
-        <button>重置</button>
+        <div>
+            <button onclick="booking()">確定</button>
+            <button>重置</button>
+        </div>
     </div>
 </div>
-<div id="booking" style="display: none;"></div>
-<script>
-    let url = new URl(window.location.href);
 
-    function getmovie() {
-        $.post("./api/get_movie.php", (movies) => {
+<div id="booking" style="display:none;">
+
+</div>
+<script>
+    let url = new URL(window.location.href);
+    getMovies();
+    $("#movie").on("change", function() {
+        getDates($("#movie").val())
+    })
+    $("#date").on("change", function() {
+        getSessions($("#movie").val(), $("#date").val())
+    })
+
+    function getMovies() {
+        $.get("./api/get_movies.php", (movies) => {
             $("#movie").html(movies);
             if (url.searchParams.has('id')) {
                 $(`#movie option[value='${url.searchParams.get('id')}']`).prop('selected', true);
             }
-            getdate($("#movie").val())
+            // let id = $("#movie").val();
+            // getDates(id);
+            getDates($("#movie").val());
         })
     }
 
-    function getdate(id) {
-        $.post("./api/get_date.php", {
+    function getDates(id) {
+        $.get("./api/get_dates.php", {
             id
         }, (dates) => {
             $("#date").html(dates);
             let movie = $("#movie").val();
             let date = $("#date").val();
-            getSession(movie, date)
+            getSessions(movie, date);
         })
     }
 
-    function getsession(movie, date) {
-        $.post("./api/get_session.php", {
+    function getSessions(movie, date) {
+        $.get("./api/get_sessions.php", {
             movie,
             date
-        }, (session) => {
-            $("#session").html(session);
+        }, (sessions) => {
+            $("#session").html(sessions);
         })
     }
-    $("#movie").on("change", function() {
-        getdate($(this).val())
-    })
-    $("#date").on("change", function() {
-        getsession($("#movie option:selected").text(), $(this).val())
-    })
 
     function booking() {
         let order = {
-            movie_id: $("#movie").val(),
-            date: $("#date").val(),
-            sesssion: $("#session").val()
+            movie_id: $('#movie').val(),
+            date: $('#date').val(),
+            session: $('#session').val(),
         }
-        $.post("./api/booking.php",order,(booking)=>{
-            $("#booking").html(booking)
-            $("#select").hide();
-            $("#booking").show();
+        $.get("./api/booking.php", order, (booking) => {
+            $('#booking').html(booking);
+            $('#select').hide();
+            $('#booking').show();
         })
+
     }
 </script>
