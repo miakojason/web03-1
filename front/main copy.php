@@ -7,6 +7,10 @@
     overflow: hidden;
   }
 
+  .item * {
+    box-sizing: border-box;
+  }
+
   .item {
     width: 200px;
     height: 240px;
@@ -16,19 +20,13 @@
     position: absolute;
   }
 
-  .item * {
-    box-sizing: border-box;
+  .item div img {
+    width: 100%;
+    height: 220px;
   }
 
-
-  .controls {
-    width: 420px;
-    height: 100px;
-    position: relative;
-    margin-top: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  .item div {
+    text-align: center;
   }
 
   .left,
@@ -37,6 +35,9 @@
     border: 20px solid black;
     border-top-color: transparent;
     border-bottom-color: transparent;
+    /* border-top-color: blue; */
+    /* border-right-color: green; */
+    /* border-bottom-color: yellow; */
   }
 
   .left {
@@ -47,49 +48,61 @@
     border-right-width: 0;
   }
 
-.btn {
+  .btns {
+    width: 360px;
+    height: 100px;
+    display: flex;
+    overflow: hidden;
+  }
+
+  .btn img {
+    width: 60px;
+    height: 80px;
+  }
+
+  .btn {
     font-size: 12px;
     text-align: center;
     flex-shrink: 0;
-    /* 讓元在flex排列下保有自己的寬度不會被擠壓 */
     width: 90px;
     position: relative;
+  }
+
+  .controls {
+    width: 420px;
+    height: 100px;
+    position: relative;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 </style>
 <div class="half" style="vertical-align:top;">
   <h1>預告片介紹</h1>
   <div class="rb tab" style="width:95%;">
-    <!--海報區-->
     <div class="lists">
-      <!--單一海報區塊-->
       <?php
       $posters = $Poster->all(['sh' => 1], " order by rank");
       foreach ($posters as $idx => $poster) {
       ?>
         <div class="item" data-ani="<?= $poster['ani']; ?>">
-          <!--海報圖片-->
-          <div><img src="./img/<?= $poster['img']; ?>" style="width:200px;height:220px;"></div>
-          <!--預告片名稱-->
-          <div style="text-align: center;"><?= $poster['name']; ?></div>
+          <div><img src="./img/<?= $poster['img']; ?>" alt=""></div>
+          <div><?= $poster['name']; ?></div>
         </div>
       <?php
       }
       ?>
     </div>
-    <!--按鈕區-->
     <div class="controls">
       <div class="left"></div>
-      <!-- 海報按鈕區塊 -->
-      <div class="btns" style="width:360px;height:100px;display:flex;overflow:hidden">
+      <div class="btns">
         <?php
-        foreach ($posters as  $idx => $poster) {
+        foreach ($posters as $idx => $poster) {
         ?>
-          <!--單一按鈕-->
           <div class="btn">
-            <!--按鈕圖片-->
-            <div><img src="./img/<?= $poster['img']; ?>" style="width:60px;height:80px"></div>
-            <!--預告片名-->
-            <div style="text-align: center;"><?= $poster['name']; ?></div>
+            <div><img src="./img/<?= $poster['img']; ?>"></div>
+            <div><?= $poster['name']; ?></div>
           </div>
         <?php
         }
@@ -100,36 +113,37 @@
   </div>
 </div>
 <script>
-  $(".item").eq(0).show(); //指定第一張海報先顯示
-  let total = $(".btn").length //計算有幾張海報
-  let now = 0; //設定從0開始
-  let next = 0; //設定下一張為0
+  $(".item").eq(0).show();
+  let total = $(".btn").length;
+  let now = 0;
+  let next = 0;
   let timer = setInterval(() => {
     slide()
-  }, 3000);
+  }, 3000)
 
   function slide(n) {
-    let ani = $(".item").eq(now).data("ani"); //取得目前顯示的海報的動畫效果
-    if (typeof(n) == 'undefined') {
+    let ani = $(".item").eq(now).data("ani");
+    if (typeof(n) == "undefined") {
       next = now + 1;
       if (next >= total) {
         next = 0;
       }
     } else {
-      next = n
+      next = n;
     }
+
     switch (ani) {
-      case 1: //淡入淡出
+      case 1:
         $(".item").eq(now).fadeOut(1000, function() {
           $(".item").eq(next).fadeIn(1000);
         });
         break;
-      case 2: //縮放
+      case 2:
         $(".item").eq(now).hide(1000, function() {
           $(".item").eq(next).show(1000);
         });
         break;
-      case 3: //滑入滑出
+      case 3:
         $(".item").eq(now).slideUp(1000, function() {
           $(".item").eq(next).slideDown(1000);
         });
@@ -137,9 +151,11 @@
     }
     now = next;
   }
-  // 
+
+  console.log("length", total);
   let p = 0;
-  $(".left,.right").on('click', function() {
+
+  $(".left,.right").on("click", function() {
     let arrow = $(this).attr('class');
     switch (arrow) {
       case "right":
@@ -157,49 +173,65 @@
       right: 90 * p
     })
   })
-  $(".btn").on('click', function() {
-    let idx = $(this).index();
+  $(".btn").on("click",function(){
+    let idx =$(this).index()
     slide(idx);
   })
-  $(".btn").hover(
+  $(".btns").hover(
     function() {
       clearInterval(timer)
     },
     function() {
       timer = setInterval(() => {
         slide()
-
-      }, 3000);
+      }, 3000)
     }
   )
 </script>
+<style>
+  .movies {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .movie {
+    display: flex;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+    padding: 2px;
+    margin: 0.5%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 49%;
+  }
+</style>
 <div class="half">
   <h1>院線片清單</h1>
   <div class="rb tab" style="width:95%;">
-    <div class="movies" style="display:flex;flex-wrap:wrap;font-size: 13px;">
+    <div class="movies">
       <?php
       $today = date("Y-m-d");
       $ondate = date("Y-m-d", strtotime("-2 days"));
-      $total = $Movie->count(" where `ondate` >= '$ondate' && `ondate` <= '$today' && `sh`=1");
+      $total = $Movie->count(" where `ondate`>='$ondate'  && `ondate` <='$today'  && `sh`=1");
       $div = 4;
-      $now = $_GET['p'] ?? 1;
       $pages = ceil($total / $div);
+      $now = $_GET['p'] ?? 1;
       $start = ($now - 1) * $div;
-      $movies = $Movie->all(" where `ondate` >= '$ondate' && `ondate` <= '$today' && `sh`=1 order by rank limit $start,$div");
+      $movies = $Movie->all(" where `ondate`>='$ondate'  && `ondate` <='$today'  && `sh`=1 order by rank limit $start,$div");
       foreach ($movies as $movie) {
       ?>
-        <div class="movie" style="display:flex;flex-wrap:wrap;width:50%">
-          <div>
-            <a href="?=intro&id=<?= $movie['id']; ?>">
-              <img src="./img/<?= $movie['poster']; ?>" style="width:50px;height:80px">
+        <div class="movie">
+          <div style="width:35%">
+            <a href="?do=intro&id=<?= $movie['id']; ?>">
+              <img src="./img/<?= $movie['poster']; ?>" style="width:60px;border:3px solid white">
             </a>
           </div>
-          <div>
+          <div style="width:65%">
             <div><?= $movie['name']; ?></div>
-            <div>分級:<img src="/icon/03C0<?= $movie['level']; ?>.png"></div>
-            <div>上映日期:<?= $movie['ondate']; ?></div>
+            <div style="font-size:13px;">分級: <img src="./icon/03C0<?= $movie['level']; ?>.png" style="width:20px"></div>
+            <div style="font-size:13px;">上映日期:<?= $movie['ondate']; ?></div>
           </div>
-          <div>
+          <div style="width:100%">
             <button onclick="location.href='?do=intro&id=<?= $movie['id']; ?>'">劇情介紹</button>
             <button onclick="location.href='?do=order&id=<?= $movie['id']; ?>'">線上訂票</button>
           </div>
@@ -210,20 +242,18 @@
     </div>
     <div class="ct">
       <?php
-      if ($now > 1) {
+      if ($now - 1 > 0) {
         $prev = $now - 1;
-        echo "<a href='?do=$do&p=$prev'><</a>";
+        echo "<a href='?p=$prev'> < </a>";
       }
       for ($i = 1; $i <= $pages; $i++) {
-        $fontsize = ($now == $i) ? '24px' : '16px';
-        echo "<a href='?do=$do&p=$i'>$i</a>";
+        echo "<a href='?p=$i'> $i </a>";
       }
-      if ($now < $pages) {
-        $next = $i + 1;
-        echo "<a href='?do=$do&p=$i'>></a>";
+      if ($now + 1 <= $pages) {
+        $next = $now + 1;
+        echo "<a href='?p=$next'> > </a>";
       }
       ?>
     </div>
   </div>
-</div>
 </div>
