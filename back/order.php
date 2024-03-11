@@ -1,3 +1,9 @@
+<style>
+.header div,
+.item div{
+ width:calc(100% /7);
+}
+</style>
 <h1 class="ct">訂單清單</h1>
 <div class="qdel">
     快速刪除:
@@ -26,12 +32,12 @@
 <style>
     
 </style>
-<div class="lists">
+<div class="lists" style="height: 330px;overflow:auto">
     <?php
     $orders = $Orders->all();
     foreach ($orders as $order) {
     ?>
-        <div class="item"style="display:flex;flex-wrap: wrap;">
+        <div class="item"style="display:flex;">
             <div><?= $order['no']; ?></div>
             <div><?= $order['movie']; ?></div>
             <div><?= $order['date']; ?></div>
