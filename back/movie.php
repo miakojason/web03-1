@@ -52,7 +52,7 @@
         })
     })
     // 
-    $(".del").on('click', function() {
+    $(".del-btn").on('click', function() {
         $.post("./api/del.php", {
             table: 'movie',
             id: $(this).data('id')
