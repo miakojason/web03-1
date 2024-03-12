@@ -161,7 +161,7 @@
     let idx = $(this).index();
     slide(idx);
   })
-  $(".btn").hover(
+  $(".btns").hover(
     function() {
       clearInterval(timer)
     },
