@@ -22,9 +22,7 @@
                     <button class="edit-btn" data-id="<?= $movie['id']; ?>">編輯電影</button>
                     <button class="del-btn" data-id="<?= $movie['id']; ?>">刪除電影</button>
                 </div>
-                <div>
-                    劇情介紹<?= $movie['intro']; ?>
-                </div>
+                <div>劇情介紹<?= $movie['intro']; ?></div>
             </div>
         </div>
     <?php
