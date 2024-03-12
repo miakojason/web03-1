@@ -28,8 +28,8 @@
                 <div><img src="./img/<?= $po['img']; ?>" style="width: 60px;height:80px;"></div>
                 <div><input type="text" name="name[]" value="<?= $po['name']; ?>"></div>
                 <div>
-                    <input class="btn" type="button" value="往上" data-id="<?= $po['id']; ?>" ; data-sw="<?= ($idx !== 0) ? $pos[$idx - 1]['id'] : $po['id']; ?>">
-                    <input class="btn" type="button" value="往下" data-id="<?= $po['id']; ?>" ; data-sw="<?= ((count($pos) - 1) != $idx) ? $pos[$idx + 1]['id'] : $po['id']; ?>">
+                    <input class="btn" type="button" value="往上" data-id="<?= $po['id']; ?>"  data-sw="<?= ($idx !== 0) ? $pos[$idx - 1]['id'] : $po['id']; ?>">
+                    <input class="btn" type="button" value="往下" data-id="<?= $po['id']; ?>"  data-sw="<?= ((count($pos) - 1) != $idx) ? $pos[$idx + 1]['id'] : $po['id']; ?>">
                 </div>
                 <div>
                     <input type="hidden" name="id[]" value="<?= $po['id']; ?>">
