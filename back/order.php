@@ -49,7 +49,7 @@
                 ?>
             </div>
             <div>
-                <button>刪除</button>
+                <button onclick="del(<?=$order['id'];?>)">刪除</button>
             </div>
         </div>
     <?php
