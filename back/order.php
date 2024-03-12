@@ -29,9 +29,6 @@
     <div>訂購位置</div>
     <div>操作</div>
 </div>
-<style>
-    
-</style>
 <div class="lists" style="height: 330px;overflow:auto">
     <?php
     $orders = $Orders->all();
