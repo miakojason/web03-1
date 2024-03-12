@@ -54,7 +54,7 @@
     // 
     $(".del").on('click', function() {
         $.post("./api/del.php", {
-            table: 'Movie',
+            table: 'movie',
             id: $(this).data('id')
         }, () => {
             location.reload()
