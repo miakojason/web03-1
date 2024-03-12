@@ -1,4 +1,4 @@
-<?php include_once "./api/db.php" ?>
+<?php include_once "./api/db.php"; ?>
 <?php
 if (!empty($_POST)) {
   if ($_POST['acc'] == 'admin' && $_POST['pw'] == '1234') {
