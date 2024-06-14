@@ -33,8 +33,8 @@ $day=explode("-",$row['ondate'])[2];
                     <td>上映日期:</td>
                     <td>
                         <select name="year" value="">
-                            <option value="2024"<?=($row['year']==2024)?'selected':'';?>>2024</option>
-                            <option value="2025"<?=($row['year']==2025)?'selected':'';?>>2025</option>
+                            <option value="2024"<?=($year==2024)?'selected':'';?>>2024</option>
+                            <option value="2025"<?=($year==2025)?'selected':'';?>>2025</option>
                         </select>年
                         <select name="month" value="">
                             <?php
